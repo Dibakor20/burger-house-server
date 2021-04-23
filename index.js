@@ -5,13 +5,12 @@ const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config()
 
 
-
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = `mongodb+srv://dbUser:4t5HdpFwgk0Pga3U@cluster0.iwezd.mongodb.net/burgerHouse?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.iwezd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/',(req,res)=>{
@@ -126,4 +125,4 @@ app.delete('/deleteProduct/:id', (req, res) => {
 
 
 
-app.listen(5000,console.log("lisenting to port 5000"))
+app.listen(process.env.PORT || 5000)
